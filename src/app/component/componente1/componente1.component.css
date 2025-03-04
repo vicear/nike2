@@ -1,0 +1,39 @@
+
+.cont1{
+    width: 99vw;  /* Ancho del div */
+    height: 80vh; /* Alto del div */
+
+    padding: 0px; /* Espaciado interno */
+
+    background-image: url(/moto.jpg);
+
+    background-size: contain; /* Ajusta la imagen sin recortarla */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que se repita */
+}
+
+
+.centrar {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 10vh; /* Ajusta la altura según sea necesario */
+    text-align: center; /* Centra el texto dentro de los elementos */
+}
+
+.boton {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px; /* Bordes redondeados */
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+}
+
+.boton:hover {
+    background-color: #333; /* Cambio de color al pasar el mouse */
+}
