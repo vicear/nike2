@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ProductsService } from '../services/products.service';
+import { ProductosService } from '../services/products.service';
 
 @Component({
   selector: 'app-form',
@@ -14,7 +14,7 @@ export class FormComponent {
   MyNewForm: FormGroup;
   selectedFile: File | null = null; // Variable para almacenar el archivo seleccionado
 
-  constructor(private service: ProductsService, private fb: FormBuilder) {
+  constructor(private service: ProductosService, private fb: FormBuilder) {
     this.MyNewForm = this.fb.group({
       id: [0, [Validators.required, Validators.pattern('^[0-9]*$')]],
       nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],

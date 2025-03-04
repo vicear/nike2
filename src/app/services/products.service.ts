@@ -4,6 +4,9 @@ import { product } from '../../interface/productos';
   providedIn: 'root'
 })
 export class ProductosService {
+  obtenerProductos(): any[] {
+    throw new Error('Method not implemented.');
+  }
 
   public products = signal<product[]>([]);
   constructor() { }
