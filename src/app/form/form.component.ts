@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ProductosService } from '../services/products.service';
+import { product } from '../interface/productos';
 
 @Component({
   selector: 'app-form',
@@ -12,7 +13,7 @@ import { ProductosService } from '../services/products.service';
 })
 export class FormComponent {
   MyNewForm: FormGroup;
-  selectedFile: File | null = null; // Variable para almacenar el archivo seleccionado
+  selectedFile: File | null = null; // Archivo de imagen seleccionado
 
   constructor(private service: ProductosService, private fb: FormBuilder) {
     this.MyNewForm = this.fb.group({
@@ -21,8 +22,8 @@ export class FormComponent {
       precio: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       descripcion: [''],
       tipoProducto: ['', [Validators.required]],
-      productoOferta: [false], // Cambiado el nombre correcto y definido como booleano
-      img: [null] // Inicialmente sin imagen
+      productoOferta: [false], 
+      img: [''] // Se usará para almacenar la URL de la imagen
     });
   }
 
@@ -31,30 +32,27 @@ export class FormComponent {
     const file = event.target.files[0];
     if (file) {
       this.selectedFile = file;
-      this.MyNewForm.patchValue({ img: file });
-      this.MyNewForm.get('img')?.updateValueAndValidity();
     }
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.MyNewForm.valid) {
-      const formData = new FormData();
-      formData.append('id', this.MyNewForm.value.id);
-      formData.append('nombre', this.MyNewForm.value.nombre);
-      formData.append('precio', this.MyNewForm.value.precio);
-      formData.append('descripcion', this.MyNewForm.value.descripcion);
-      formData.append('tipoProducto', this.MyNewForm.value.tipoProducto);
-      formData.append('productoOferta', this.MyNewForm.value.productoOferta);
+      let imageUrl = '';
+
+      // Si hay una imagen, subirla antes de enviar el producto
       if (this.selectedFile) {
-        formData.append('img', this.selectedFile);
+        imageUrl = await this.service.uploadImage(this.selectedFile);
       }
 
-      // Enviar datos al servicio
-      this.service.addProduct(this.MyNewForm.value);
+      const newProduct: product = {
+        ...this.MyNewForm.value,
+        img: imageUrl // Guardar la URL de la imagen en el producto
+      };
 
-      // Mostrar datos en consola
-      console.log('Producto agregado:', this.MyNewForm.value);
-      console.log('Archivo seleccionado:', this.selectedFile);
+      // Agregar el producto usando Signals
+      this.service.addProduct(newProduct);
+
+      console.log('Producto agregado:', newProduct);
     }
   }
 }

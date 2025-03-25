@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Signal } from '@angular/core';
 import { ProductosService } from '../services/products.service';
 import { CommonModule } from '@angular/common';
+import { product } from '../interface/productos'
 
 @Component({
   selector: 'app-lista-productos',
@@ -9,11 +10,12 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule], 
 })
 export class ListaProductosComponent implements OnInit {
-  productos: any[] = [];
+  productos: Signal<product[]>;
 
-  constructor(private productosService: ProductosService) {}
-
+  constructor(private productosService: ProductosService) {
+    this.productos = this.productosService.loadProducts();
+  }
   ngOnInit() {
-    this.productos = this.productosService.obtenerProductos();
+    this.productos = this.productosService.loadProducts();
   }
 }

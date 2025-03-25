@@ -1,50 +1,50 @@
 <form [formGroup]="MyNewForm" (ngSubmit)="onSubmit()" class="max-w-2xl mx-auto p-6 bg-white">
-    <h2 class="text-3xl font-bold mb-6 text-gray-900">Añadir nuevo producto</h2>
+  <h2 class="text-3xl font-bold mb-6 text-gray-900">Añadir nuevo producto</h2>
+
+  <!-- Campo de ID -->
+  <div class="mb-4">
+    <label for="id">ID</label>
+    <input type="text" id="id" formControlName="id">
+  </div>
+
+  <!-- Campo de nombre -->
+  <div class="mb-4">
+    <label for="nombre">Nombre de producto</label>
+    <input type="text" id="nombre" formControlName="nombre">
+  </div>
+
+  <!-- Campo de precio -->
+  <div class="mb-4">
+    <label for="precio">Precio</label>
+    <input type="number" id="precio" formControlName="precio">
+  </div>
+
+  <!-- Campo de descripción -->
+  <div class="mb-4">
+    <label for="descripcion">Descripción</label>
+    <textarea id="descripcion" formControlName="descripcion" rows="3"></textarea>
+  </div>
+
+  <!-- Campo de tipo de producto -->
+  <div class="mb-4">
+    <label for="tipoProducto">Tipo de producto</label>
+    <input type="text" id="tipoProducto" formControlName="tipoProducto">
+  </div>
+
+  <!-- Campo de oferta -->
+  <div class="mb-4">
+    <label for="productoOferta">En oferta</label>
+    <input type="checkbox" id="productoOferta" formControlName="productoOferta">
+  </div>
+
+  <!-- Campo de imagen -->
+  <div class="mb-4">
+    <label for="img">Imagen de producto</label>
+    <input type="file" id="img" (change)="onFileChange($event)">
+  </div>
   
-    <!-- Campo de ID -->
-    <div class="mb-4">
-      <label for="id">ID</label>
-      <input type="text" id="id" formControlName="id">
-    </div>
   
-    <!-- Campo de nombre -->
-    <div class="mb-4">
-      <label for="nombre">Nombre de producto</label>
-      <input type="text" id="nombre" formControlName="nombre">
-    </div>
-  
-    <!-- Campo de precio -->
-    <div class="mb-4">
-      <label for="precio">Precio</label>
-      <input type="number" id="precio" formControlName="precio">
-    </div>
-  
-    <!-- Campo de descripción -->
-    <div class="mb-4">
-      <label for="descripcion">Descripción</label>
-      <textarea id="descripcion" formControlName="descripcion" rows="3"></textarea>
-    </div>
-  
-    <!-- Campo de tipo de producto -->
-    <div class="mb-4">
-      <label for="tipoProducto">Tipo de producto</label>
-      <input type="text" id="tipoProducto" formControlName="tipoProducto">
-    </div>
-  
-    <!-- Campo de oferta -->
-    <div class="mb-4">
-      <label for="productoOferta">En oferta</label>
-      <input type="checkbox" id="productoOferta" formControlName="productoOferta">
-    </div>
-  
-    <!-- Campo de imagen -->
-    <div class="mb-4">
-      <label for="img">Imagen de producto</label>
-      <input type="file" id="img" (change)="onFileChange($event)">
-    </div>
-    
-    <button type="submit" [disabled]="MyNewForm.invalid">
-      Agregar Producto
-    </button>
-  </form>
-  
+  <button type="submit" [disabled]="MyNewForm.invalid">
+    Agregar Producto
+  </button>
+</form>
