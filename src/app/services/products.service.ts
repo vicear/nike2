@@ -10,16 +10,34 @@ import { Observable } from 'rxjs';
 
 export class ProductosService {
   private apiUrl = "http://localhost:5000/api";
-  obtenerProductos(): any[] {
-    throw new Error('Method not implemented.');
-  }
+
+
+
+
+
+  
+ 
 
   public products = signal<product[]>([]);
   constructor(private http: HttpClient) {}
 
 
+   // Método para obtener productos
+   obtenerProductos(): Observable<product[]> {
+    return this.http.get<product[]>(`${this.apiUrl}/productos`); // Esperamos una lista de productos
+  }
+
   loadProducts(): Signal<product[]> {
-    return this.products;
+    this.obtenerProductos().subscribe({
+      next: (productos) => {
+        this.products.set(productos); // Actualizamos la señal con la respuesta de la API
+      },
+      error: (err) => {
+        console.error('Error al obtener productos:', err);
+      },
+    });
+
+    return this.products; // Retornamos la señal actualizada
   }
 
   addProduct(product: product): void {

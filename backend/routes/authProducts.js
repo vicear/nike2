@@ -60,4 +60,81 @@ router.post("/productos", async (req, res) => {
 
 
 
+
+
+
+
+
+
+
+// Ruta para obtener todos los productos
+
+router.get("/productos", async (req, res) => {
+    try {
+        const productos = await Producto.findAll();
+        res.json(productos);
+    } catch (error) {
+        console.error("Error en el servidor:", error);
+        res.status(500).json({ msg: "Error en el servidor" });
+    }
+});
+
+// Ruta para obtener un producto por ID
+router.get("/productos/:id", async (req, res) => {
+    try {
+        const producto = await Producto.findByPk(req.params.id);
+        if (!producto) {
+            return res.status(404).json({ msg: "Producto no encontrado" });
+        }
+        res.json(producto);
+    } catch (error) {
+        console.error("Error en el servidor:", error);
+        res.status(500).json({ msg: "Error en el servidor" });
+    }
+});
+
+// Ruta para actualizar un producto
+router.put("/productos/:id", async (req, res) => {
+    try {
+        const { nombre, precio, descripcion, tipoProducto, productoOferta, img } = req.body;
+        const producto = await Producto.findByPk(req.params.id);
+
+        if (!producto) {
+            return res.status(404).json({ msg: "Producto no encontrado" });
+        }
+
+        producto.nombre = nombre || producto.nombre;
+        producto.precio = precio || producto.precio;
+        producto.descripcion = descripcion || producto.descripcion;
+        producto.tipoProducto = tipoProducto || producto.tipoProducto;
+        producto.productoOferta = productoOferta || producto.productoOferta;
+        producto.img = img || producto.img;
+
+        await producto.save();
+        res.json({ msg: "Producto actualizado correctamente", producto });
+    } catch (error) {
+        console.error("Error en el servidor:", error);
+        res.status(500).json({ msg: "Error en el servidor" });
+    }
+});
+
+// Ruta para eliminar un producto
+router.delete("/productos/:id", async (req, res) => {
+    try {
+        const producto = await Producto.findByPk(req.params.id);
+        if (!producto) {
+            return res.status(404).json({ msg: "Producto no encontrado" });
+        }
+
+        await producto.destroy();
+        res.json({ msg: "Producto eliminado correctamente" });
+    } catch (error) {
+        console.error("Error en el servidor:", error);
+        res.status(500).json({ msg: "Error en el servidor" });
+    }
+});
+
+
+
+
 module.exports = router;
