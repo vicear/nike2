@@ -1,0 +1,14 @@
+input {
+    display: block;
+    margin-bottom: 10px;
+  }
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  button:disabled {
+    background-color: #ccc;
+  }

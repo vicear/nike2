@@ -1,17 +1,21 @@
 import { Injectable, Signal, signal } from '@angular/core';
 import { product } from '../interface/productos';
+import { HttpClient } from "@angular/common/http";
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
+
 export class ProductosService {
+  private apiUrl = "http://localhost:5000/api";
   obtenerProductos(): any[] {
     throw new Error('Method not implemented.');
   }
 
   public products = signal<product[]>([]);
-  constructor() { }
+  constructor(private http: HttpClient) {}
 
 
   loadProducts(): Signal<product[]> {
@@ -19,10 +23,20 @@ export class ProductosService {
   }
 
   addProduct(product: product): void {
-    this.products.update((products) => [...products, product]);
+    console.log("Creando producto:", product)
+ 
+ 
+    this.http.post<{ message: string; product: product }>(`${this.apiUrl}/productos`, product).subscribe({
+      next: (response) => {
+        // Actualizar la lista de productos añadiendo el nuevo
+        this.products.update((products) => [...products, response.product])
 
+      },
+      error: (err) => {
 
-    
+        console.error("Error al crear el producto:", err)
+      },
+    })
   }
 
   async uploadImage(image: File): Promise<string> {
@@ -46,5 +60,9 @@ export class ProductosService {
       console.error('Error al subir la imagen:', error);
       return '';
     }
+
   }
+
+  
+
 }
