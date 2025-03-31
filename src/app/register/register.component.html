@@ -1,4 +1,5 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<div>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <label for="name">Nombre:</label>
     <!-- formControlName="name" -->
     <input id="name"  type="text" formControlName="name" required>
@@ -24,3 +25,4 @@
   
     <button type="submit" [disabled]="registerForm.invalid">Registrarse</button>
   </form>
+</div>
