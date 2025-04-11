@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common'; // Importa esto
 
 
 import { HomeComponent } from './home/home.component';
-import { FormComponent } from './form/form.component';
+import { FormComponent } from './component/form/form.component';
 import { ListaProductosComponent } from './lista-productos/lista-productos.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ProductosService } from '../services/products.service';
-import { product } from '../interface/productos';
+import { ProductosService } from '../../services/products.service';
+import { product } from '../../interface/productos';
 
 @Component({
   selector: 'app-form',

@@ -62,7 +62,7 @@ export class ProductosService {
     formData.append('image', image);
 
     try {
-      const response = await fetch('http://192.168.24.158:5000/upload', {
+      const response = await fetch('http://192.168.24.158:3000/upload', {
         method: 'POST',
         body: formData,
       });
